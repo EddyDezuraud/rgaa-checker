@@ -1,0 +1,74 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Audit {
+  id            String            @id @default(cuid())
+  url           String
+  status        AuditStatus       @default(PENDING)
+  options       Json
+  score         Float             @default(0)
+  applicable    Int               @default(0)
+  validated     Int               @default(0)
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+  criteria      CriteriaResult[]
+  attestation   Attestation?
+  evidences     Evidence[]
+  domHash       String?
+  engineVersion String?
+}
+
+enum AuditStatus {
+  PENDING
+  RUNNING
+  COMPLETED
+  FAILED
+}
+
+model CriteriaResult {
+  id          String        @id @default(cuid())
+  audit       Audit         @relation(fields: [auditId], references: [id])
+  auditId     String
+  criterionId String
+  label       String
+  theme       String
+  type        String
+  wcag        String
+  status      String
+  description String
+  remediation String
+  scoreWeight Float         @default(1)
+  evidences   Evidence[]
+}
+
+model Evidence {
+  id           String   @id @default(cuid())
+  type         String
+  path         String?
+  snippet      String?
+  description  String?
+  criterion    CriteriaResult @relation(fields: [criterionId], references: [id])
+  criterionId  String
+  audit        Audit    @relation(fields: [auditId], references: [id])
+  auditId      String
+}
+
+model Attestation {
+  id           String   @id @default(cuid())
+  audit        Audit    @relation(fields: [auditId], references: [id])
+  auditId      String   @unique
+  statusLabel  String
+  scope        String
+  score        Float
+  technologies String
+  limitations  String
+  contact      String
+  appeal       String
+  createdAt    DateTime @default(now())
+}

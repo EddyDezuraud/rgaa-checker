@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <title>Attestation d'accessibilité</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      body { font-family: 'Inter', 'Segoe UI', sans-serif; margin: 0; padding: 2rem; background: #f8fafc; color: #0f172a; }
+      header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+      h1 { font-size: 2rem; margin: 0; }
+      section { background: white; border-radius: 1.5rem; padding: 1.5rem; box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08); margin-bottom: 1.5rem; }
+      dt { font-weight: 600; }
+      dd { margin: 0 0 1rem; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div>
+        <h1>Attestation d'accessibilité</h1>
+        <p id="audit-url"></p>
+      </div>
+      <span id="audit-score" aria-live="polite"></span>
+    </header>
+    <main>
+      <section aria-labelledby="status-heading">
+        <h2 id="status-heading">État de conformité</h2>
+        <p id="status-label"></p>
+        <p><strong>Taux global :</strong> <span id="status-score"></span></p>
+      </section>
+      <section aria-labelledby="scope-heading">
+        <h2 id="scope-heading">Périmètre de l'audit</h2>
+        <p id="scope"></p>
+      </section>
+      <section aria-labelledby="limitations-heading">
+        <h2 id="limitations-heading">Contenus non accessibles</h2>
+        <p id="limitations"></p>
+      </section>
+      <section aria-labelledby="technologies-heading">
+        <h2 id="technologies-heading">Technologies utilisées</h2>
+        <ul id="technologies"></ul>
+      </section>
+      <section aria-labelledby="contact-heading">
+        <h2 id="contact-heading">Contact</h2>
+        <p id="contact"></p>
+      </section>
+      <section aria-labelledby="appeal-heading">
+        <h2 id="appeal-heading">Voies de recours</h2>
+        <p id="appeal"></p>
+      </section>
+    </main>
+  </body>
+</html>
